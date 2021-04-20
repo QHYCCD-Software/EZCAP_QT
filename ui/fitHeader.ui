@@ -1,0 +1,808 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FitHeader</class>
+ <widget class="QDialog" name="FitHeader">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>542</width>
+    <height>454</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Fit Header</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../res.qrc">
+    <normaloff>:/image/EZCAP_Icon.ico</normaloff>:/image/EZCAP_Icon.ico</iconset>
+  </property>
+  <widget class="QTableWidget" name="tableWidget_fitHeader">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>521</width>
+     <height>289</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Tahoma</family>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::NoEditTriggers</set>
+   </property>
+   <property name="alternatingRowColors">
+    <bool>false</bool>
+   </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::SingleSelection</enum>
+   </property>
+   <property name="selectionBehavior">
+    <enum>QAbstractItemView::SelectRows</enum>
+   </property>
+   <property name="rowCount">
+    <number>25</number>
+   </property>
+   <property name="columnCount">
+    <number>3</number>
+   </property>
+   <attribute name="horizontalHeaderVisible">
+    <bool>false</bool>
+   </attribute>
+   <attribute name="horizontalHeaderHighlightSections">
+    <bool>false</bool>
+   </attribute>
+   <attribute name="horizontalHeaderStretchLastSection">
+    <bool>true</bool>
+   </attribute>
+   <attribute name="verticalHeaderVisible">
+    <bool>false</bool>
+   </attribute>
+   <attribute name="verticalHeaderHighlightSections">
+    <bool>true</bool>
+   </attribute>
+   <row>
+    <property name="text">
+     <string>SIMPLE</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>BITPIX</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>NAXIS</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>NAXIS1</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>NAXIS2</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>BSCALE</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>BZERO</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>DATE-OBS</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>EXPTIME</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>EXPOSURE</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>GAIN</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>OFFSET</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>SET-TEMP</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>CCD-TEMP</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>XPIXSZ</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>YPIXSZ</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>XBINNING</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>YBINNING</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>OBJECT</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>TELESCOP</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>OBSERVER</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>AUTHOR</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>CAMERA</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>SWCREATE</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>INSTRUME</string>
+    </property>
+   </row>
+   <column>
+    <property name="text">
+     <string>Value</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>DataType</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Description</string>
+    </property>
+   </column>
+   <item row="0" column="0">
+    <property name="text">
+     <string>T</string>
+    </property>
+   </item>
+   <item row="0" column="1">
+    <property name="text">
+     <string>TLOGICAL</string>
+    </property>
+   </item>
+   <item row="0" column="2">
+    <property name="text">
+     <string>does file conform to the Standard? T/F</string>
+    </property>
+   </item>
+   <item row="1" column="1">
+    <property name="text">
+     <string>TINT</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="1" column="2">
+    <property name="text">
+     <string>bits per data value</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="2" column="0">
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item row="2" column="1">
+    <property name="text">
+     <string>TINT</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="2" column="2">
+    <property name="text">
+     <string>number of axes</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="3" column="1">
+    <property name="text">
+     <string>TINT</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="3" column="2">
+    <property name="text">
+     <string>X size of the axis</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="4" column="1">
+    <property name="text">
+     <string>TINT</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="4" column="2">
+    <property name="text">
+     <string>Y size of the axis</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="5" column="0">
+    <property name="text">
+     <string>1.0</string>
+    </property>
+   </item>
+   <item row="5" column="1">
+    <property name="text">
+     <string>TDOUBLE</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="5" column="2">
+    <property name="text">
+     <string>physical = BZERO + BSCALE*array_value.</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="6" column="0">
+    <property name="text">
+     <string>0</string>
+    </property>
+   </item>
+   <item row="6" column="1">
+    <property name="text">
+     <string>TDOUBLE</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="6" column="2">
+    <property name="text">
+     <string>physical = BZERO + BSCALE*array_value.</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="7" column="1">
+    <property name="text">
+     <string>TSTRING</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="7" column="2">
+    <property name="text">
+     <string>YYYY-MM-DDThh:mm:ss observation start</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="8" column="1">
+    <property name="text">
+     <string>TDOUBLE</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="8" column="2">
+    <property name="text">
+     <string>exposure time in seconds.</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="9" column="1">
+    <property name="text">
+     <string>TDOUBLE</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="9" column="2">
+    <property name="text">
+     <string>exposure time in seconds.</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="10" column="1">
+    <property name="text">
+     <string>TINT</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="10" column="2">
+    <property name="text">
+     <string>Amplifier gain</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="11" column="1">
+    <property name="text">
+     <string>TINT</string>
+    </property>
+   </item>
+   <item row="11" column="2">
+    <property name="text">
+     <string>Analog Offset.</string>
+    </property>
+   </item>
+   <item row="12" column="1">
+    <property name="text">
+     <string>TDOUBLE</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="12" column="2">
+    <property name="text">
+     <string>CCD temperature setpoint in C</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="13" column="1">
+    <property name="text">
+     <string>TDOUBLE</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="13" column="2">
+    <property name="text">
+     <string>CCD temperature at start of exposure in C</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="14" column="1">
+    <property name="text">
+     <string>TDOUBLE</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="14" column="2">
+    <property name="text">
+     <string>Pixel Width in microns</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="15" column="1">
+    <property name="text">
+     <string>TDOUBLE</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="15" column="2">
+    <property name="text">
+     <string>Pixel Height in microns</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="16" column="1">
+    <property name="text">
+     <string>TINT</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="16" column="2">
+    <property name="text">
+     <string>Binning factor in width</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="17" column="1">
+    <property name="text">
+     <string>TINT</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="17" column="2">
+    <property name="text">
+     <string>Binning factor in height</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="18" column="1">
+    <property name="text">
+     <string>TSTRING</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="18" column="2">
+    <property name="text">
+     <string>name of observed object</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="19" column="0">
+    <property name="text">
+     <string/>
+    </property>
+   </item>
+   <item row="19" column="1">
+    <property name="text">
+     <string>TSTRING</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="19" column="2">
+    <property name="text">
+     <string>name of telescope</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="20" column="1">
+    <property name="text">
+     <string>TSTRING</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="20" column="2">
+    <property name="text">
+     <string>observer who acquired the data</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="21" column="1">
+    <property name="text">
+     <string>TSTRING</string>
+    </property>
+   </item>
+   <item row="21" column="2">
+    <property name="text">
+     <string>author of the data</string>
+    </property>
+   </item>
+   <item row="22" column="0">
+    <property name="text">
+     <string/>
+    </property>
+   </item>
+   <item row="22" column="1">
+    <property name="text">
+     <string>TSTRING</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="22" column="2">
+    <property name="text">
+     <string>Camera name.</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="23" column="0">
+    <property name="text">
+     <string>EZCAP_Qt</string>
+    </property>
+   </item>
+   <item row="23" column="1">
+    <property name="text">
+     <string>TSTRING</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="23" column="2">
+    <property name="text">
+     <string>Name of software that created the image</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="24" column="0">
+    <property name="text">
+     <string>QHYCCD</string>
+    </property>
+   </item>
+   <item row="24" column="1">
+    <property name="text">
+     <string>TSTRING</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+   <item row="24" column="2">
+    <property name="text">
+     <string>name of instrument</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+    </property>
+   </item>
+  </widget>
+  <widget class="QGroupBox" name="gBox_key_fitHeader">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>310</y>
+     <width>521</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Tahoma</family>
+    </font>
+   </property>
+   <property name="title">
+    <string>Edit</string>
+   </property>
+   <widget class="QPushButton" name="pBtn_set_fitHeader">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>20</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Set</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pBtn_delete_fitHeader">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>50</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_keyName_fitHeader">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>75</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Key Name :</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_value_fitHeader">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>60</y>
+      <width>75</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Value :</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Type_fitHeader">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>90</y>
+      <width>75</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Type :</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="keyName_fitHeader">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>20</y>
+      <width>261</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="editable">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="value_fitHeader">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>60</y>
+      <width>261</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rBtn_integer_fitHeader">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>90</y>
+      <width>71</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Integer</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rBtn_double_fitHeader">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>90</y>
+      <width>71</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Double</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rBtn_string_fitHeader">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>90</y>
+      <width>71</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rBtn_logical_fitHeader">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>90</y>
+      <width>71</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Logical</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../res.qrc"/>
+ </resources>
+ <connections/>
+</ui>

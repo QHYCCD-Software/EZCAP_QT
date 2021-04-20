@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EZCAP</class>
+ <widget class="QMainWindow" name="EZCAP">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1018</width>
+    <height>706</height>
+   </rect>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::DefaultContextMenu</enum>
+  </property>
+  <property name="windowTitle">
+   <string>EZCAP</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../res.qrc">
+    <normaloff>:/image/EZCAP_Icon.ico</normaloff>:/image/EZCAP_Icon.ico</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
+   <widget class="QLabel" name="label_ImgShow">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>10</y>
+      <width>791</width>
+      <height>671</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>CrossCursor</cursorShape>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::CustomContextMenu</enum>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="margin">
+     <number>0</number>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widgetFocusAssistant" native="true">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>260</y>
+      <width>733</width>
+      <height>295</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>733</width>
+      <height>295</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Tahoma</family>
+     </font>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <widget class="QLabel" name="fwhm_focusAssistant">
+     <property name="geometry">
+      <rect>
+       <x>535</x>
+       <y>9</y>
+       <width>49</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Tahoma</family>
+       <pointsize>13</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #646464;</string>
+     </property>
+     <property name="text">
+      <string>FWHM</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="peakIntensity_focusAssistant">
+     <property name="geometry">
+      <rect>
+       <x>535</x>
+       <y>153</y>
+       <width>109</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Tahoma</family>
+       <pointsize>13</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #646464;</string>
+     </property>
+     <property name="text">
+      <string>Peak Intensity</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="peak_value_focusAssistant">
+     <property name="geometry">
+      <rect>
+       <x>535</x>
+       <y>177</y>
+       <width>191</width>
+       <height>117</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Tahoma</family>
+       <pointsize>73</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #808000;</string>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="fwhm_value_focusAssistant">
+     <property name="geometry">
+      <rect>
+       <x>535</x>
+       <y>33</y>
+       <width>191</width>
+       <height>117</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Tahoma</family>
+       <pointsize>73</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #800000;</string>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_focusAssistant">
+     <property name="geometry">
+      <rect>
+       <x>13</x>
+       <y>10</y>
+       <width>201</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Tahoma</family>
+       <pointsize>18</pointsize>
+       <weight>75</weight>
+       <italic>true</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #646464;</string>
+     </property>
+     <property name="text">
+      <string>Focus Assistant</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pBtn_linear">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>263</y>
+       <width>50</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Linear</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pBtn_thermal">
+     <property name="geometry">
+      <rect>
+       <x>62</x>
+       <y>263</y>
+       <width>50</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Thermal</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pBtn_false">
+     <property name="geometry">
+      <rect>
+       <x>114</x>
+       <y>263</y>
+       <width>50</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>False</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pBtn_invert">
+     <property name="geometry">
+      <rect>
+       <x>166</x>
+       <y>263</y>
+       <width>50</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Invert</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="image1_focusAssistant">
+     <property name="geometry">
+      <rect>
+       <x>13</x>
+       <y>45</y>
+       <width>200</width>
+       <height>200</height>
+      </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="image2_focusAssistant">
+     <property name="geometry">
+      <rect>
+       <x>229</x>
+       <y>10</y>
+       <width>300</width>
+       <height>128</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="image3_focusAssistant">
+     <property name="geometry">
+      <rect>
+       <x>229</x>
+       <y>155</y>
+       <width>300</width>
+       <height>128</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="falseColor_focusAssistant">
+     <property name="geometry">
+      <rect>
+       <x>13</x>
+       <y>251</y>
+       <width>200</width>
+       <height>9</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QScrollArea" name="scrollArea_manager">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>222</width>
+      <height>681</height>
+     </rect>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents_2">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>220</width>
+       <height>679</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_debug">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>300</y>
+      <width>221</width>
+      <height>381</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>Debug</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="../res.qrc"/>
+ </resources>
+ <connections/>
+</ui>
