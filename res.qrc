@@ -1,0 +1,41 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/EZCAP_Icon.ico</file>
+        <file>image/qhyccd.png</file>
+        <file>image/slider_thumb_on.png</file>
+        <file>qss/style.qss</file>
+        <file>image/slider_thumb_off.png</file>
+        <file>image/disable.bmp</file>
+        <file>image/auto.bmp</file>
+        <file>image/autoHover.bmp</file>
+        <file>image/button.bmp</file>
+        <file>image/buttonDown.bmp</file>
+        <file>image/buttonHover.bmp</file>
+        <file>image/stop.bmp</file>
+        <file>image/stopDown.bmp</file>
+        <file>image/stopHover.bmp</file>
+        <file>image/down_arrow.png</file>
+        <file>image/black.bmp</file>
+        <file>image/FalseColor.bmp</file>
+        <file>image/Linear.bmp</file>
+        <file>image/NegativeFilm.bmp</file>
+        <file>image/ThermalMAP.bmp</file>
+        <file>image/unfoldHead.bmp</file>
+        <file>image/foldHead.bmp</file>
+        <file>image/slider_bar.png</file>
+        <file>image/vslider_thumb_off.png</file>
+        <file>image/vslider_thumb_on.png</file>
+        <file>image/statusBar.png</file>
+        <file>image/left-arrow.png</file>
+        <file>image/left-arrow_hover.png</file>
+        <file>image/right-arrow.png</file>
+        <file>image/right-arrow_hover.png</file>
+        <file>image/down-arrow.png</file>
+        <file>image/down-arrow_hover.png</file>
+        <file>image/up-arrow.png</file>
+        <file>image/up-arrow_hover.png</file>
+        <file>language/lan_en_us.qm</file>
+        <file>language/lan_ja_jp.qm</file>
+        <file>language/lan_zh_cn.qm</file>
+    </qresource>
+</RCC>
