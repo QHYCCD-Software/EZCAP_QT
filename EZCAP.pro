@@ -101,9 +101,20 @@ unix:{
     INCLUDEPATH += /usr/local/include
 #    INCLUDEPATH += /usr/local/Cellar/libusb/1.0.20/include
 
+#For x86_64 Ubuntu
     LIBS += -L/usr/local/lib -lqhyccd
-	LIBS += -L/usr/local/lib -lopencv_imgproc -lopencv_highgui -lopencv_core -lopencv_imgcodecs
-	LIBS += -L/usr/local/lib -lusb-1.0 -lcfitsio
+    LIBS += -L/usr/lib/x86_64-linux-gnu -lopencv_imgproc -lopencv_highgui -lopencv_core -lopencv_imgcodecs
+    LIBS += -L/usr/lib/x86_64-linux-gnu -lusb-1.0 -lcfitsio
+    
+##For Arm32
+#    LIBS += -L/usr/local/lib -lqhyccd
+#    LIBS += -L/usr/lib/arm-linux-gnueabihf -lopencv_imgproc -lopencv_highgui -lopencv_core -lopencv_imgcodecs
+#    LIBS += -L/usr/lib/arm-linux-gnueabihf -lusb-1.0 -lcfitsio
+
+#For Arm64
+#    LIBS += -L/usr/local/lib -lqhyccd
+#    LIBS += -L/usr/lib/aarch64-linux-gnu -lopencv_imgproc -lopencv_highgui -lopencv_core -lopencv_imgcodecs
+#    LIBS += -L/usr/lib/aarch64-linux-gnu -lusb-1.0 -lcfitsio
 }
 
 win32: {
