@@ -29,7 +29,23 @@ Favorite::~Favorite()
 
 void Favorite::on_cBox_trigIn_clicked(bool checked)
 {
+    unsigned int ret;
+    ret = libqhyccd->IsQHYCCDControlAvailable(camhandle,CAM_TRIGER_INTERFACE);
+    //ret = IsQHYCCDControlAvailable(camhandle,CAM_TRIGER_INTERFACE);
+    if(ret == QHYCCD_SUCCESS){
+        ix.canTriger = true;
+    }else{
+        ix.canTriger = false;
+        ui->cBox_trigIn->setEnabled(false);
+    }
+
     ix.trigerInOrOut = checked;
+    ret = libqhyccd->SetQHYCCDTrigerFunction(camhandle, ix.trigerInOrOut);
+    if(ret == QHYCCD_SUCCESS){
+        qDebug() << "SetQHYCCDTrigerFunction" << ix.trigerInOrOut;
+    }else{
+        qCritical() << "SetQHYCCDTrigerFunction failure";
+    }
 }
 
 void Favorite::on_spinBox_usbtraffic_valueChanged(int arg1)

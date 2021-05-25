@@ -65,14 +65,16 @@ void EZCAP::updateWindowsTitle() {
     uint8_t superSpeed ='-';
     uint8_t camStatus = '-';
     uint32_t sdk_build_version='-';
-    qDebug() << "connected" + ix.isConnected;
+    qDebug() << "updateWindowsTitle: connected" + ix.isConnected;
     sdk_build_version = libqhyccd->GetQHYCCDSDKBuildVersion();
     if(ix.isConnected){
+//        qDebug() << "updateWindowsTitle: 1";
         qDebug() << "====>GET SPEED";
         superSpeed = libqhyccd->GetCameraIsSuperSpeedFromID(camid);
         superSpeed = superSpeed + 2 +48;//48=0(ascii code) In SDK 0=usb2.0 1=usb3.0 , so speed+=2
         camStatus = libqhyccd->GetCameraStatusFromID(camid)+48;//48=0(ascii code)
     }else{
+//        qDebug() << "updateWindowsTitle: 2";
         ix.CamID = "-";
         ix.FPGAVer = "-";
         ix.FPGAVer1 = "-";
@@ -81,7 +83,105 @@ void EZCAP::updateWindowsTitle() {
         statusLabel_RH->clear();
         statusLabel_PRESS->clear();
     }
+//    qDebug() << "updateWindowsTitle: E";
     this->setWindowTitle(tr("EZCAP[") + EZCAP_VER + "] Cam-ID: [" + ix.CamID +"]   FPGA.A:[" + ix.FPGAVer + "]  "  +"FPGA.B:[" + ix.FPGAVer1 + "] FirmWare:[" + ix.driverVer +"] USB["+QString(superSpeed)+"] Conn[" +QString(camStatus)+"] Build[" + QString::number(sdk_build_version) +"]");
+//    qDebug() << "updateWindowsTitle: F";
+}
+QString device_status_string_out = QString("①②③④⑤⑥⑦⑧");
+QString device_status_string_connected = QString("❶❷❸❹❺❻❼❽");
+QMap<int,QMap<QString,int>> dev_status_map;
+
+//dev_status 0 = init, 1 = connected
+void update_device_status(char *id,int dev_status){
+    QString param_id = QString("[%1]").arg(id);
+    qDebug( "update  [%s] [%d] ", param_id.toStdString().c_str(), dev_status);
+    QMapIterator<int,QMap<QString,int>> i_search(dev_status_map);
+
+    bool dev_found = false;
+    int found_dev_connection_count =0;
+    int found_index = -1;
+    while (i_search.hasNext()) {
+        found_index++;
+        i_search.next();
+        QMapIterator<QString, int> i(i_search.value());
+//        qDebug() << "------------1 ";
+        while (i.hasNext()) {
+            i.next();
+            qDebug() << i.key() << ": " << i.value();
+        }
+        if(i_search.value().contains(param_id)){
+            dev_found = true;
+            found_dev_connection_count = i_search.value().value("connection_count",-1);
+            break;
+//            QMap<QString,int> mapItem = i_search.value();
+//            mapItem[param_id] = dev_status;
+
+//            qDebug( "found  [%s] [%d] ", param_id.toStdString().c_str(), mapItem[param_id]);
+        }
+    }
+    if(!dev_found){
+        qDebug( "add +++++++++  [%s] [%d] ", param_id.toStdString().c_str(), dev_status);
+        QMap<QString,int> new_dev;
+        new_dev[param_id] = dev_status;
+        new_dev["connection_count"] = 1;
+        dev_status_map[dev_status_map.size()] = new_dev;
+    }else{
+        dev_status_map[found_index][param_id] = dev_status;
+        switch (dev_status) {
+        case 0:
+            dev_status_map[found_index]["connection_count"] = found_dev_connection_count;
+            break;
+        case 1:
+            dev_status_map[found_index]["connection_count"] = found_dev_connection_count + 1;
+            break;
+        default:
+            qDebug( "found count error  [%s] [%d] ", param_id.toStdString().c_str(), dev_status_map[found_index][param_id]);
+            break;
+
+        }
+        qDebug( "found  [%s] [%d] ", param_id.toStdString().c_str(), dev_status_map[found_index][param_id]);
+    }
+
+    QString device_status_string_update = QString("");
+    QMapIterator<int,QMap<QString,int>> i_update(dev_status_map);
+    int status_update = 0;
+    int index_update = 0;
+
+    while (i_update.hasNext()) {
+        i_update.next();
+        if(index_update < (dev_status_map.size()-8)){
+            continue;//show last 8 cameras
+        }
+        QMap<QString,int> mapItem_update = i_update.value();
+        status_update = mapItem_update.values().first();
+        QString id_update = mapItem_update.keys().first();
+//         qDebug( "updating  [%s] [%d] ", id_update.toStdString().c_str(), status_update);
+         QMapIterator<QString, int> i(mapItem_update);
+//         qDebug( "------------2  %d ",index_update);
+         while (i.hasNext()) {
+             i.next();
+             qDebug() << i.key() << ": " << i.value();
+         }
+        switch (status_update) {
+        case 0:
+            device_status_string_update += device_status_string_out.mid(index_update,1);
+            qDebug( "cam list updating 0 [%s] [%d] [%s] ", id_update.toStdString().c_str(), status_update,QString(" - %1").arg(index_update).toStdString().c_str());
+            break;
+        case 1:
+            device_status_string_update += device_status_string_connected.mid(index_update,1);
+            qDebug( "cam list updating 1 [%s] [%d] [%s] ", id_update.toStdString().c_str(), status_update,QString(" + %1").arg(index_update).toStdString().c_str());
+            break;
+        default:
+            device_status_string_update += "?";
+            break;
+
+        }
+        device_status_string_update += QString::number(mapItem_update["connection_count"]) +" ";
+        if((index_update+1) %4 ==0){device_status_string_update += "| ";}
+        index_update++;
+    }
+    qDebug("update_device_status  [%s] " , device_status_string_update.toStdString().c_str());
+   mainWidget->statusLabel_dev_status->setText(device_status_string_update);
 }
 
 void pnpEventExFunc(){
@@ -93,19 +193,20 @@ void pnpEventExFunc(){
 void transferEventErrorFunc(){
     qDebug() << ".....transferEventErrorFunc......";
     transfer_error_counter++;
-    mainWidget->statusLabel_SDKmsg->setText("PNP: " + QString::number(pnp_counter) + "Err: " + QString::number(transfer_error_counter));
+    mainWidget->statusLabel_SDKmsg->setText("P:" + QString::number(pnp_counter) + " E: " + QString::number(transfer_error_counter));
     mainWidget->ui->plainTextEdit_debug->appendPlainText(QString("Err  [%1]").arg(mainWidget->statusLabel_SDKmsg->text()));
 }
 void pnp_Event_In_Func(char *id){
 	qDebug() << ".....pnp_Event_In_Func......";
     qDebug( "Cam +  [%s]", id);
     mainWidget->ui->plainTextEdit_debug->appendPlainText(QString("Cam +  [%1]").arg(id));
-
+    update_device_status(id,1);
     QString eventID = QString(id);
     if(ix.isConnected){
         qDebug( "Cam In [%s] , But Cam[%s] already connected ", id, ix.CamID.toStdString().c_str());
         return ;
     }
+//        mainWidget->statusLabel_SDKmsg->setText("P:" + QString::number(pnp_counter) + " E: " + QString::number(transfer_error_counter));
     if(iniFileParams.autoConnect){
         mainMenuBar->actConnect->trigger();
     }
@@ -113,13 +214,14 @@ void pnp_Event_In_Func(char *id){
 void pnp_Event_Out_Func(char *id){
     qDebug( "Cam -  [%s]", id);
     mainWidget->ui->plainTextEdit_debug->appendPlainText(QString("Cam -  [%1]").arg(id));
+    update_device_status(id,0);
     QString eventID = QString(id);
     if(eventID.compare(ix.CamID) != 0){
         qDebug( "Cam Out Compare false  [%s] [%s]", id, ix.CamID.toStdString().c_str());
         return ;
     }
     if(managerMenu->ui->pBtn_live_preview->isEnabled()){
-        managerMenu->ui->pBtn_live_preview->click();
+//        managerMenu->ui->pBtn_live_preview->click(); // 会在 高于1.2 秒左右的 拍摄中导致无法 正常自动断开无法 连接的相机，所以 注释掉，也不需要手动去关闭这个连续拍摄了
         ix.cameraState = Camera_Idle; //todo need to extract a disconnect function and enable the preview button
         #ifdef WIN32
                     Sleep(200);
@@ -137,6 +239,7 @@ void data_Event_Single_Func(char *id, uint8_t *imageData){
 void data_Event_Live_Func(char *id, uint8_t *imageData){
     qDebug( "img +Live  [%s]", id);
 }
+
 
 
 /**
@@ -217,6 +320,7 @@ EZCAP::EZCAP(QWidget *parent) :
     statusLabel_PRESS->setFixedSize(100,18);
     statusLabel_msg = new QLabel(this);//显示提示信息
     statusLabel_SDKmsg = new QLabel(this);//显示提示信息
+    statusLabel_dev_status = new QLabel(this);
     ui->statusBar->addWidget(statusLabel_imgSize);
     ui->statusBar->addWidget(statusLabel_mousePos);
     ui->statusBar->addWidget(statusLabel_rgb);
@@ -225,6 +329,7 @@ EZCAP::EZCAP(QWidget *parent) :
     ui->statusBar->addWidget(statusLabel_PRESS);
     ui->statusBar->addWidget(statusLabel_msg);
     ui->statusBar->addWidget(statusLabel_SDKmsg);
+    ui->statusBar->addWidget(statusLabel_dev_status);
 
     //----------------------整体borderlayout布局-------------------------------------------------
     mainLayout = new BorderLayout();
@@ -652,6 +757,29 @@ EZCAP::EZCAP(QWidget *parent) :
     ui->plainTextEdit_debug->hide();
 }
 
+void EZCAP::showEvent(QShowEvent *)
+{
+    QTimer::singleShot(100, this, SLOT(initLibqhyccd()));
+}
+
+void EZCAP::initLibqhyccd(){
+    unsigned int ret=NULL;
+    ret =libqhyccd->InitQHYCCDResource(); //ret = InitQHYCCDResource();
+    if(ret != QHYCCD_SUCCESS)
+    {
+        qCritical("InitQHYCCDResource: failed");
+        if(libqhyccd)
+        {
+            delete libqhyccd;
+            libqhyccd=NULL;
+        }
+    }
+    else
+    {
+        qDebug() << "EZCAP   InitQHYCCDSDK success";
+    }
+}
+
 
 EZCAP::~EZCAP()
 {
@@ -760,6 +888,11 @@ EZCAP::~EZCAP()
     {
         delete statusLabel_SDKmsg;
         statusLabel_SDKmsg = NULL;
+    }
+    if(statusLabel_dev_status)
+    {
+        delete statusLabel_dev_status;
+        statusLabel_dev_status =NULL;
     }
 
     if(tempTimer)
@@ -1744,7 +1877,7 @@ void EZCAP::closeEvent( QCloseEvent * event )
             ret = libqhyccd->CloseQHYCCD(camhandle);
             //ret = CloseQHYCCD(camhandle);
             if(ret != QHYCCD_SUCCESS)
-                qCritical("CloseQHYCCD: failed");
+                qCritical("CloseQHYCCD:closeEvent failed");
             else
                 qDebug() <<"CloseQHYCCD success";
         }
@@ -1862,7 +1995,8 @@ void EZCAP::showCameraChooser()
 //                ret = CloseQHYCCD(camhandle);
                 if(ret != QHYCCD_SUCCESS)
                 {
-                    qCritical("CloseQHYCCD: failed");
+                    camhandle = NULL;
+                    qCritical("CloseQHYCCD:showCameraChooser failed");
                 }
                 else
                 {
@@ -1870,7 +2004,7 @@ void EZCAP::showCameraChooser()
                     qDebug() << "EZCAP  |  CloseQHYCCD success";
                 }
             }
-            qDebug() << ix.isConnected;
+            qDebug() << "showCameraChooser" <<ix.isConnected;
             emit disconnect_camera();
         }
     }
@@ -2775,11 +2909,12 @@ void EZCAP::mgrMenu_pBtn_preview_clicked()
 
         ix.cameraState = Camera_Exposing;
         prev_time.start();
-        //ret = ExpQHYCCDSingleFrame(camhandle); //start exposure...
+
+        qCritical("------------- E1");
         ret = libqhyccd->ExpQHYCCDSingleFrame(camhandle);
         if(ret == QHYCCD_SUCCESS)
         {
-            qDebug() <<"ExpQHYCCDSingleFrame success, wait...";
+            qDebug() <<"ExpQHYCCDSingleFrame success, wait...A";
         #ifdef WIN32
             Sleep(200);
         #else
@@ -2828,7 +2963,7 @@ void EZCAP::mgrMenu_pBtn_preview_clicked()
         {
             //处理下载进度条
             managerMenu->ui->proBar_preview->setValue(libqhyccd->GetQHYCCDReadingProgress(camhandle));
-            //managerMenu->ui->proBar_preview->setValue(GetQHYCCDReadingProgress(camhandle));
+
 #ifdef WIN32
             Sleep(1);
 #else
@@ -2908,6 +3043,7 @@ void EZCAP::mgrMenu_pBtn_live_preview_clicked()
 
         while(ix.onLiveMode)
         {
+             qDebug() <<"ExpQHYCCDSingleFrame mark 0";
             ix.imageReady = GetSingleFrame_Waiting;
             if(ix.Exptime != ix.LastExptime)
             {
@@ -2983,14 +3119,16 @@ void EZCAP::mgrMenu_pBtn_live_preview_clicked()
             }
 
             ix.dateOBS = QDateTime::currentDateTime().toString(Qt::ISODate);  //记录当前拍摄时间戳
-
+ qDebug() <<"ExpQHYCCDSingleFrame mark 1";
             ix.cameraState = Camera_Exposing;
             sTime.start();
-            //ret = ExpQHYCCDSingleFrame(camhandle); //start exposure...
+
+            qCritical("------------- E2");
             ret = libqhyccd->ExpQHYCCDSingleFrame(camhandle);
+             qDebug() <<"ExpQHYCCDSingleFrame mark 2";
             if(ret == QHYCCD_SUCCESS)
             {
-                qDebug() <<"ExpQHYCCDSingleFrame success, wait...";
+                qDebug() <<"ExpQHYCCDSingleFrame success, wait...B";
             #ifdef WIN32
                 Sleep(200);
             #else
@@ -3006,6 +3144,7 @@ void EZCAP::mgrMenu_pBtn_live_preview_clicked()
             {
                 qCritical("ExpQHYCCDSingleFrame failed");
             }
+             qDebug() <<"ExpQHYCCDSingleFrame mark 3";
 
             //进度条复位
             managerMenu->ui->proBar_previewTime->setValue(0);
@@ -3044,7 +3183,7 @@ void EZCAP::mgrMenu_pBtn_live_preview_clicked()
             while(ix.imageReady == GetSingleFrame_Waiting)
             {
                 //处理下载进度条
-                //managerMenu->ui->proBar_preview->setValue(GetQHYCCDReadingProgress(camhandle));
+
                 managerMenu->ui->proBar_preview->setValue(libqhyccd->GetQHYCCDReadingProgress(camhandle));
             #ifdef WIN32
                 Sleep(1);
@@ -3468,12 +3607,14 @@ void EZCAP::mgrMenu_pBtn_focus_clicked()
 
         ix.dateOBS = QDateTime::currentDateTime().toString(Qt::ISODate);  //记录当前拍摄时间戳
 
+
         ix.cameraState = Camera_Exposing;
-        //ret = ExpQHYCCDSingleFrame(camhandle); //start exposure...
+
+        qCritical("------------- E3");
         ret = libqhyccd->ExpQHYCCDSingleFrame(camhandle);
         if(ret == QHYCCD_SUCCESS)
         {
-            qDebug() <<"ExpQHYCCDSingleFrame success, wait...";
+            qDebug() <<"ExpQHYCCDSingleFrame success, wait...C";
         #ifdef WIN32
             Sleep(200);
         #else
@@ -3650,8 +3791,9 @@ void EZCAP::mgrMenu_pBtn_live_focus_clicked()
             ix.dateOBS = QDateTime::currentDateTime().toString(Qt::ISODate);  //记录当前拍摄时间戳
 
             ix.cameraState = Camera_Exposing;
+            qCritical("------------- E4");
             ret = libqhyccd->ExpQHYCCDSingleFrame(camhandle);
-            //ret = ExpQHYCCDSingleFrame(camhandle); //start exposure...
+
             if(ret == QHYCCD_SUCCESS)
             {
                 qDebug() <<"ExpQHYCCDSingleFrame success, wait...";
@@ -4558,19 +4700,19 @@ void EZCAP::mgrMenu_pBtn_capture_clicked()
         //ix.dateOBS = QDateTime::currentDateTimeUtc().toString(Qt::ISODate);
 
         //Triger function
-        if(ix.canTriger)
-        {
-            ret = libqhyccd->SetQHYCCDTrigerFunction(camhandle, ix.trigerInOrOut);
-            //ret = SetQHYCCDTrigerFunction(camhandle, ix.trigerInOrOut);
-            if(ret == QHYCCD_SUCCESS)
-            {
-                qDebug() << "SetQHYCCDTrigerFunction" << ix.trigerInOrOut;
-            }
-            else
-            {
-                qCritical() << "SetQHYCCDTrigerFunction failure";
-            }
-        }
+//        if(ix.canTriger)
+//        {
+//            ret = libqhyccd->SetQHYCCDTrigerFunction(camhandle, ix.trigerInOrOut);
+//            //ret = SetQHYCCDTrigerFunction(camhandle, ix.trigerInOrOut);
+//            if(ret == QHYCCD_SUCCESS)
+//            {
+//                qDebug() << "SetQHYCCDTrigerFunction" << ix.trigerInOrOut;
+//            }
+//            else
+//            {
+//                qCritical() << "SetQHYCCDTrigerFunction failure";
+//            }
+//        }
         //20200512lyl GPSon
         if(ix.isGPSon)
         {
@@ -4590,8 +4732,9 @@ void EZCAP::mgrMenu_pBtn_capture_clicked()
         //sign up camera is exposuring...
         ix.cameraState = Camera_Exposing;
         sTime.start();
+         qCritical("------------- E5");
         ret = libqhyccd->ExpQHYCCDSingleFrame(camhandle);
-        //ret = ExpQHYCCDSingleFrame(camhandle);//start exposure...
+
         if(ret == QHYCCD_ERROR)
         {
             qCritical("ExpQHYCCDSingleFrame failed");
@@ -4602,7 +4745,7 @@ void EZCAP::mgrMenu_pBtn_capture_clicked()
         }
         else
         {
-            qDebug() << "ExpQHYCCDSingleFrame success, wait...";
+            qDebug() << "ExpQHYCCDSingleFrame success, wait...D";
 #ifdef WIN32
             Sleep(200);
 #else
@@ -4654,7 +4797,7 @@ void EZCAP::mgrMenu_pBtn_capture_clicked()
                 //处理下载进度条
                 //....
                 managerMenu->ui->proBar_capture->setValue(libqhyccd->GetQHYCCDReadingProgress(camhandle));
-                //managerMenu->ui->proBar_capture->setValue(GetQHYCCDReadingProgress(camhandle));
+
 #ifdef WIN32
                 Sleep(1);
 #else
