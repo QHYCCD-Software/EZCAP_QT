@@ -151,6 +151,7 @@ public:
 
     void updateWindowsTitle();
     void pnpEventFunc();
+    void update_device_status(char *id,int dev_status);
 private slots:
     /*File 菜单中的槽*/
     void saveAsFIT();
@@ -234,6 +235,7 @@ private slots:
     void cfwTimer_timeout();
     void ditherTimer_timeout();
     void PumpTimer_timeout();
+    void initLibqhyccd();
     //切换显示语言
     void changeToEnglish();
     void changeToChinese();
@@ -298,6 +300,7 @@ public:
     QLabel *statusLabel_PRESS;//显示当前压力
     QLabel *statusLabel_msg;//显示提示信息
     QLabel *statusLabel_SDKmsg;//显示提示信息
+    QLabel *statusLabel_dev_status;//显示设备状态
     QMenu *cmenu_captureExp;//capture曝光滑动条 右键菜单
     QMenu *cmenu_imgArea;//图像显示区域右键菜单
 
@@ -376,6 +379,8 @@ public:
 
     QStringList devList; //list to hold on the id of the cameras    
     //QString filetemp;//20201125lyl温度湿度压力数据保存
+    void showEvent(QShowEvent *);
+
 };
 
 extern class EZCAP *mainWidget;//define global class object

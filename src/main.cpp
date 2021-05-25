@@ -114,46 +114,45 @@ static void installMsgHandler()
 
 int main(int argc, char *argv[])
 {
+#ifdef Q_OS_WIN32
+
 #if(QT_VERSION >= QT_VERSION_CHECK(4,0,0))
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
+
     QApplication a(argc, argv);
 
     const float DEFAULT_DPI = 96.0;
-//    HDC screen = GetDC(NULL);
-//    FLOAT dpiX = static_cast<FLOAT>(GetDeviceCaps(screen, LOGPIXELSX));
-//    ReleaseDC(0, screen);
-//    float fontSize = dpiX / DEFAULT_DPI;
-//    QFont font = a.font();
-//    font.setPointSize(font.pointSize()*fontSize);
-//    a.setFont(font);
+    QList<QScreen*> screens = QApplication::screens();
 
-      QList<QScreen*> screens = QApplication::screens();
-      if (screens.size() > 0) {
-          QScreen* screen = screens[0];
-          double dpiX = screen->logicalDotsPerInch();
+    if (screens.size() > 0) {
+        QScreen* screen = screens[0];
+        double dpiX = screen->logicalDotsPerInch();
           //rate = dpiX / 96.0;
-          float fontSize = dpiX / DEFAULT_DPI;
-          if (fontSize < 1.1) {
-              fontSize = 1.0;
-          } else if (fontSize < 1.4) {
-              fontSize = 1.25;
-          } else if (fontSize < 1.6) {
-              fontSize = 1.5;
-          } else if (fontSize < 1.8) {
-              fontSize = 1.75;
-          } else {
-              fontSize = 2.0;
-          }
-          QFont font = a.font();
-          font.setPointSize(font.pointSize()*fontSize);
-          a.setFont(font);
-      }
+        float fontSize = dpiX / DEFAULT_DPI;
+        if (fontSize < 1.1) {
+            fontSize = 1.0;
+        } else if (fontSize < 1.4) {
+            fontSize = 1.25;
+        } else if (fontSize < 1.6) {
+            fontSize = 1.5;
+        } else if (fontSize < 1.8) {
+            fontSize = 1.75;
+        } else {
+            fontSize = 2.0;
+        }
+        QFont font = a.font();
+        font.setPointSize(font.pointSize()*fontSize);
+        a.setFont(font);
+    }
+#else
+    QApplication a(argc, argv);
+#endif
 
     installMsgHandler();
 
-    libqhyccd =new dllqhyccd();
-    unsigned int ret=NULL;
+//    libqhyccd =new dllqhyccd();
+//    unsigned int ret=NULL;
     QDir *temp = new QDir;
     bool exist = temp->exists("./Bias");
     if(!exist)
@@ -173,20 +172,20 @@ int main(int argc, char *argv[])
             qDebug() << "mkdir Black failed" << endl;
         }
     }
-    ret =libqhyccd->InitQHYCCDResource(); //ret = InitQHYCCDResource();
-    if(ret != QHYCCD_SUCCESS)
-    {
-        qCritical("InitQHYCCDResource: failed");
-        if(libqhyccd)
-        {
-            delete libqhyccd;
-            libqhyccd=NULL;
-        }
-    }
-    else
-    {
-        qDebug() << "EZCAP   InitQHYCCDSDK success";
-    }
+//    ret =libqhyccd->InitQHYCCDResource(); //ret = InitQHYCCDResource();
+//    if(ret != QHYCCD_SUCCESS)
+//    {
+//        qCritical("InitQHYCCDResource: failed");
+//        if(libqhyccd)
+//        {
+//            delete libqhyccd;
+//            libqhyccd=NULL;
+//        }
+//    }
+//    else
+//    {
+//        qDebug() << "EZCAP   InitQHYCCDSDK success";
+//    }
 //20200426 lyl 修正样式
     QApplication::setStyle(QStyleFactory::create("Fusion"));
     //set application stylesheet
